@@ -43,14 +43,14 @@ class SharedQueue {
       space
     };
 
-    static const int CAPACITY = 10;
+    static const int CAPACITY = 100;
     static const int SEM_COUNT = 3;
     static const int IND_COUNT = 3;
 
 
     typedef char element;
 
-    SharedQueue(const key_t key, bool is_server);
+    SharedQueue(const key_t key, bool is_server=false);
     ~SharedQueue();
 
     /* synchronized priority queue interface */

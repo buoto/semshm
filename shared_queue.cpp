@@ -50,7 +50,7 @@ SharedQueue::SharedQueue(key_t key, bool is_server) {
 
 
 SharedQueue::~SharedQueue() {
-  printf("destruct\n");
+  printf("Queue died\n");
   if(shmdt(buf)) {
     throw shmerror();
   }
@@ -72,27 +72,27 @@ SharedQueue::~SharedQueue() {
 }
 
 void SharedQueue::push(element el) {
-  up(size);
   down(space);
   down(mutex);
   push_(el, false);
   up(mutex);
+  up(size);
 }
 
 void SharedQueue::push_priority(element el) {
-  up(size);
   down(space);
   down(mutex);
   push_(el, true);
   up(mutex);
+  up(size);
 }
 
 SharedQueue::element SharedQueue::pop() {
   down(size);
-  up(space);
   down(mutex);
   element result = pop_();
   up(mutex);
+  up(space);
   return result;
 }
 

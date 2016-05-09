@@ -15,7 +15,7 @@ int main() {
     }
     q.push_priority('P');
       q.print_contents();
-    q.push_priority('P');
+    q.push_priority('p');
       q.print_contents();
       q.pop();
       q.pop();
