@@ -1,17 +1,19 @@
+BINS=bootstrap debug_printer grzyb mieso ciasto wytwornia dyspozytornia
+LIB=shared_queue.o
 
+.PHONY: all clean example
 
+all: $(BINS)
 
-all:
-	g++ -c shared_queue.cpp
-	g++ shared_queue.o bootstrap.cpp -o bootstrap
-	g++ shared_queue.o debug_printer.cpp -o debug_printer
-	g++ shared_queue.o grzyb.cpp -o grzyb
-	g++ shared_queue.o mieso.cpp -o mieso
-	g++ shared_queue.o ciasto.cpp -o ciasto
-	g++ shared_queue.o wytwornia.cpp -o wytwornia
-	g++ shared_queue.o dyspozytornia.cpp -o dyspozytornia
+$(BINS): $(LIB)
+	g++ shared_queue.o $@.cpp -o $@
 
-example:
-	g++ -c shared_queue.cpp
+$(LIB):
+	g++ -c $(@:.o=.cpp)
+
+clean:
+	rm $(BINS) serv cli *.o
+
+example: $(LIB)
 	g++ shared_queue.o serv.cpp -o serv
 	g++ shared_queue.o cli.cpp -o cli
