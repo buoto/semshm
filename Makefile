@@ -1,5 +1,5 @@
 BINS=bootstrap debug_printer grzyb mieso ciasto wytwornia dyspozytornia
-LIB=shared_queue.o
+LIB=lib/shared_queue.o
 
 .PHONY: all clean example
 
@@ -15,5 +15,5 @@ clean:
 	rm $(BINS) serv cli *.o
 
 example: $(LIB)
-	g++ shared_queue.o serv.cpp -o serv
-	g++ shared_queue.o cli.cpp -o cli
+	g++ shared_queue.o example/serv.cpp -o serv
+	g++ shared_queue.o example/cli.cpp -o cli

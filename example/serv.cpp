@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "shared_queue.h"
+#include "../lib/shared_queue.h"
 
 
 int main() {

@@ -40,7 +40,7 @@ SharedQueue::SharedQueue(key_t key, bool is_server) {
     if( semctl(semsid, mutex, SETVAL, arg) < 0) {
       throw semerror();
     }
-    arg.val = CAPACITY + 1;
+    arg.val = CAPACITY;
     if( semctl(semsid, space, SETVAL, arg) < 0) {
       throw semerror();
     }

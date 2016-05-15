@@ -17,6 +17,7 @@ int main() {
         std::cout << "grzybowe" << std::endl;
         break;
     }
+    usleep(DYSPOZY_T);
   }
 
   return 0;
