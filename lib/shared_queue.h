@@ -66,13 +66,13 @@ class SharedQueue {
     };
 
     static const int SEM_COUNT = 3;
-    static const int IND_COUNT = 3;
+    static const int IND_COUNT = 4;
 
     int shmid, indid;
     char *buf;
 
     // poiners to buffer indices, not actual elements or adresses
-    char *head, *end, *end_priority;
+    char *head, *end, *end_priority, *end_medium;
     bool is_server;
 
     int semsid;
@@ -86,7 +86,9 @@ class SharedQueue {
     element pop_();
 
     /* internal utilities */
-    void shift_tail();
+    void shift_tail_medium();
+    void shift_tail_priority();
+    void shift_tail(char **desired_end);
     static inline char cyclic_inc(const char val) {
       return (val == CAPACITY - 1) ? 0 : val + 1;
     }

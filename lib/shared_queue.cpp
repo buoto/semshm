@@ -21,6 +21,7 @@ SharedQueue::SharedQueue(key_t key, bool is_server) {
   }
   end = head + 1;
   end_priority = head + 2;
+  end_medium = head + 3;
 
 
 
@@ -107,20 +108,24 @@ SharedQueue::element SharedQueue::pop() {
 void SharedQueue::push_(const element el, const Priority p) {
   char **pos_index_ptr = &end;
   if(p == priority) {
-    shift_tail();
+    shift_tail_priority();
     pos_index_ptr = &end_priority;
+  } else if (p == medium) {
+    shift_tail_medium();
+    pos_index_ptr = &end_medium;
   }
 
+  // standard - no shifting required
   buf[(int)**pos_index_ptr] = el;
 
   **pos_index_ptr = cyclic_inc(**pos_index_ptr);
 }
 
-void SharedQueue::shift_tail() {
-  const int priority = cyclic_dec(*end_priority);
+void SharedQueue::shift_tail(char **desired_end) {
+  const int first_stationary = cyclic_dec(**desired_end);
   int cur = cyclic_dec(*end);
 
-  while(cur != priority) {
+  while(cur != first_stationary) {
     int next = cyclic_inc(cur);
     buf[next] = buf[cur];
     cur = cyclic_dec(cur);
@@ -130,10 +135,23 @@ void SharedQueue::shift_tail() {
 
 }
 
+void SharedQueue::shift_tail_medium() {
+  shift_tail(&end_medium);
+}
+
+void SharedQueue::shift_tail_priority() {
+  shift_tail(&end_priority);
+  *end_medium = cyclic_inc(*end_medium);
+
+}
+
 SharedQueue::element SharedQueue::pop_() {
   element result = buf[(int)*head];
   if(*head == *end_priority) {
     *end_priority = cyclic_inc(*end_priority);
+  }
+  if(*head == *end_medium) {
+    *end_medium = cyclic_inc(*end_medium);
   }
   *head = cyclic_inc(*head);
   return result;
@@ -167,6 +185,8 @@ void SharedQueue::print_contents() {
       printf("[%c] ", buf[i]);
     } else if (i == *end_priority) {
       printf("{%c} ", buf[i]);
+    } else if (i == *end_medium) {
+      printf("(%c) ", buf[i]);
     } else {
      printf("%c ", buf[i]);
     }
