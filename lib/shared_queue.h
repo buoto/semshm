@@ -36,17 +36,7 @@ union semun {
 
 class SharedQueue {
   public:
-    /* semaphore indices */
-    enum Semaphore {
-      mutex,
-      size,
-      space
-    };
-
     static const int CAPACITY = 100;
-    static const int SEM_COUNT = 3;
-    static const int IND_COUNT = 3;
-
 
     typedef char element;
 
@@ -55,12 +45,29 @@ class SharedQueue {
 
     /* synchronized priority queue interface */
     void push(const element el);
+    void push_medium(const element el);
     void push_priority(const element el);
     element pop();
 
     void print_contents();
 
   private:
+    /* semaphore indices */
+    enum Semaphore {
+      mutex,
+      size,
+      space
+    };
+
+    enum Priority {
+      priority,
+      medium,
+      standard
+    };
+
+    static const int SEM_COUNT = 3;
+    static const int IND_COUNT = 3;
+
     int shmid, indid;
     char *buf;
 
@@ -75,7 +82,7 @@ class SharedQueue {
     void down(Semaphore sem);
 
     /* internal non-synchronized queue methods*/
-    void push_(const element el, const bool priority);
+    void push_(const element el, const Priority p);
     element pop_();
 
     /* internal utilities */

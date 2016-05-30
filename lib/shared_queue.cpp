@@ -74,7 +74,15 @@ SharedQueue::~SharedQueue() {
 void SharedQueue::push(element el) {
   down(space);
   down(mutex);
-  push_(el, false);
+  push_(el, standard);
+  up(mutex);
+  up(size);
+}
+
+void SharedQueue::push_medium(element el) {
+  down(space);
+  down(mutex);
+  push_(el, medium);
   up(mutex);
   up(size);
 }
@@ -82,7 +90,7 @@ void SharedQueue::push(element el) {
 void SharedQueue::push_priority(element el) {
   down(space);
   down(mutex);
-  push_(el, true);
+  push_(el, priority);
   up(mutex);
   up(size);
 }
@@ -96,9 +104,9 @@ SharedQueue::element SharedQueue::pop() {
   return result;
 }
 
-void SharedQueue::push_(const element el, bool priority) {
+void SharedQueue::push_(const element el, const Priority p) {
   char **pos_index_ptr = &end;
-  if(priority) {
+  if(p == priority) {
     shift_tail();
     pos_index_ptr = &end_priority;
   }
