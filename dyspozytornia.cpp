@@ -16,6 +16,9 @@ int main() {
       case GRZYBOWE:
         std::cout << "grzybowe" << std::endl;
         break;
+      case SEROWE:
+        std::cout << "serowe" << std::endl;
+        break;
     }
     usleep(DYSPOZY_T);
   }

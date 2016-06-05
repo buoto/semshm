@@ -11,15 +11,18 @@ extern const int DEBUG_Q = 666666;
 enum produkt {
   MIESO,
   GRZYB,
+  SER,
   CIASTO,
   MIESNE,
-  GRZYBOWE
+  GRZYBOWE,
+  SEROWE
 };
 
-extern const int MIESO_T = 1500000;
+extern const int MIESO_T = 1000000/3;
 extern const int GRZYB_T = 1000000/5;
-extern const int CIASTO_T = 1000000/7;
-extern const int PIEROG_T = 1000000/4;
+extern const int SER_T = 1000000/3;
+extern const int CIASTO_T = 1000000/8;
+extern const int PIEROG_T = 1000000/5;
 extern const int DYSPOZY_T = 1000000/3;
 
 #endif

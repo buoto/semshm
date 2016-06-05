@@ -12,6 +12,24 @@ int main() {
       q.print_contents();
     q.push('x');
       q.print_contents();
+    q.push_priority('p');
+      q.print_contents();
+    q.push_medium('m');
+    q.push_medium('m');
+    q.push_medium('m');
+    q.push_medium('m');
+    q.push_medium('m');
+      q.print_contents();
+    q.push_priority('P');
+      q.print_contents();
+    q.pop();
+      q.print_contents();
+    q.pop();
+      q.print_contents();
+    q.pop();
+      q.print_contents();
+    q.pop();
+      q.print_contents();
       /*
       q.pop();
     for(char i = 0; i < 4; i ++){

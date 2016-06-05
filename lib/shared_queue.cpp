@@ -180,15 +180,15 @@ void SharedQueue::print_contents() {
   printf("%d %d %d\n", *head, *end, *end_priority);
   for(int i = 0; i < CAPACITY; i++) {
     if(i == *head) {
-      printf("<%c> ", buf[i]);
+      printf("<%c>\t", buf[i]);
     } else if (i == *end) {
-      printf("[%c] ", buf[i]);
+      printf("[%c]\t", buf[i]);
     } else if (i == *end_priority) {
-      printf("{%c} ", buf[i]);
+      printf("{%c}\t", buf[i]);
     } else if (i == *end_medium) {
-      printf("(%c) ", buf[i]);
+      printf("(%c)\t", buf[i]);
     } else {
-     printf("%c ", buf[i]);
+     printf("%c\t", buf[i]);
     }
   }
   printf("\n");

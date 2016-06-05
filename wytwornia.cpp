@@ -10,7 +10,7 @@ int main() {
   SharedQueue debug(DEBUG_Q);
 
   for(;;) {
-    char f = farsz.pop()+3;
+    char f = farsz.pop()+4;
     ciasto.pop();
     pierogi.push(f);
     debug.push(f);

@@ -1,4 +1,4 @@
-BINS=bootstrap debug_printer grzyb mieso ciasto wytwornia dyspozytornia
+BINS=bootstrap debug_printer grzyb mieso ciasto wytwornia dyspozytornia ser
 LIB=lib/shared_queue.o
 
 .PHONY: all clean example
